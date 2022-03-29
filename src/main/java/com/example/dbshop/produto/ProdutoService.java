@@ -28,6 +28,15 @@ public class ProdutoService {
         return produtoRepository.save(produtoEntity);
     }
 
+    public ProdutoEntity atualizar(Long id, ProdutoRequest produtoRequest) {
+
+        Optional<ProdutoEntity> optProdutoEntity = produtoRepository.findById(id);
+//        Valido se recuperou ou 404
+        ProdutoEntity produtoEntity = optProdutoEntity.get();
+        produtoEntity.setNome(produtoRequest.getNome());
+        return produtoRepository.save(produtoEntity);
+    }
+
     public ProdutoEntity buscarPorId(Long id) {
         return produtoRepository.findById(id)
                 .orElseThrow(
