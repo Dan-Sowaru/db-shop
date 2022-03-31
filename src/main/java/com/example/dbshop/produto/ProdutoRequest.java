@@ -23,14 +23,5 @@ public class ProdutoRequest {
     private Integer peso;
     private String pesoUnidadeMedida;
 
-    public ProdutoEntity toEntity() {
-        return new ProdutoEntity(
-                this.getNome(),
-                this.getDescricao(),
-                this.getValor(),
-                this.getCodigoBarra(),
-                this.getIdFabricante(),
-                this.getPeso(),
-                this.getPesoUnidadeMedida());
-    }
+
 }
