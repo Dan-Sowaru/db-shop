@@ -3,10 +3,12 @@ package com.example.dbshop.produto;
 import com.example.dbshop.fabricante.FabricanteEntity;
 import com.example.dbshop.fabricante.FabricanteRepository;
 import lombok.AllArgsConstructor;
+import org.hibernate.Criteria;
+import org.hibernate.internal.CriteriaImpl;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +20,17 @@ public class ProdutoService {
     private FabricanteRepository fabricanteRepository;
 
 
+    public Page<ProdutoEntity> buscarTodos(String nomeProduto, String nomeFabricante, Integer offset, Integer limit) {
 
-    public Page<ProdutoEntity> buscarTodos(Integer offset, Integer limit) {
-
-//        no Raphael está Pageable, comigo só funcionou OffsetLimitPageable
         Pageable pageable = new OffsetLimitPageable(offset, limit);
+
+//      Exemplo Criteria
+//        List<FabricanteEntity> fabricantes = fabricanteRepository.findByName(nomeFabricante);
+//        Criteria criteria = new CriteriaImpl();
+//        criteria.add();//and fabricante in fabricantes
+//        criteria.add();//and nome produto like nomeProduto;
+
+
 
         return produtoRepository.findAll(pageable);
     }
@@ -33,7 +41,7 @@ public class ProdutoService {
 
     public List<ProdutoEntity> buscarTodosDeUmFabricante(Long idFabricante) {
 //        if (idFabricante == null)
-            return produtoRepository.findAllByIdFabricante(idFabricante);
+        return produtoRepository.findAllByIdFabricante(idFabricante);
 //        return produtoRepository.findAll();
 
     }
@@ -55,7 +63,6 @@ public class ProdutoService {
         ProdutoEntity produtoEntity = toEntity(produtoRequest, fabricanteEntity.get());
         return produtoRepository.save(produtoEntity);
     }
-
 
 
     public ProdutoEntity atualizar(Long id, ProdutoRequest produtoRequest) {
