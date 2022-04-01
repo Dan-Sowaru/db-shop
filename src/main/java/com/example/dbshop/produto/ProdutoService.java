@@ -20,11 +20,13 @@ public class ProdutoService {
     private FabricanteRepository fabricanteRepository;
 
 
-    public Page<ProdutoEntity> buscarTodos(String nomeProduto, String nomeFabricante, Integer offset, Integer limit) {
+    public Page<ProdutoEntity> buscarTodos(Integer offset, Integer limit) {
 
         Pageable pageable = new OffsetLimitPageable(offset, limit);
 
 //      Exemplo Criteria
+
+//        buscarTodos(String nomeProduto, String nomeFabricante, Integer offset, Integer limit)
 //        List<FabricanteEntity> fabricantes = fabricanteRepository.findByName(nomeFabricante);
 //        Criteria criteria = new CriteriaImpl();
 //        criteria.add();//and fabricante in fabricantes
