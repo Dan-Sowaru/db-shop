@@ -1,11 +1,12 @@
 package com.example.dbshop.produto;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 
 @RestController
@@ -19,10 +20,15 @@ public class ProdutoController {
     public ResponseEntity<Page<ProdutoEntity>> get(
 //            @RequestParam(name = "fabricante") Long idFabricante
             @RequestParam(name = "offset", required = true) Integer offset,
-            @RequestParam(name = "limit", required = true) Integer limit
+            @RequestParam(name = "limit", required = true) Integer limit,
+            @RequestParam(name = "nome", required = false) String nome,
+            @RequestParam(name = "dataCriacao", required = false) String dataCriacao,
+            @RequestParam(name = "fabricante", required = false) String fabricante,
+            @RequestParam(name = "valor_maximo", required = false) BigDecimal valorMaximo
+
     ) {
 
-        Page<ProdutoEntity> produtos = produtoService.buscarTodos(offset, limit);
+         Page<ProdutoEntity> produtos = produtoService.buscarTodos(offset, limit, nome, valorMaximo);
         return ResponseEntity.ok(produtos);
     }
 
